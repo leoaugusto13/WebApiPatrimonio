@@ -1,0 +1,48 @@
+package com.navita.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.navita.models.*;
+import com.navita.repository.*;
+
+@RestController
+@RequestMapping("/api")
+public class MarcaController {
+	
+	@Autowired
+	public MarcaRepository marcaRepository;
+	
+	@GetMapping("/marcas")
+	public List<Marca> listaMarcas(){
+		return marcaRepository.findAll();
+	}
+	
+	@GetMapping("/marca/{id}")
+	public Marca buscaMarcaId(@PathVariable("id") long id) {
+		return marcaRepository.findById(id);
+	}
+	@PostMapping("/marca")
+	public Marca registraMarca(@RequestBody Marca marca) {
+		return marcaRepository.save(marca);
+	}
+	
+	@DeleteMapping("/marca")
+	public void deletaMarca(@RequestBody Marca marca){
+		marcaRepository.delete(marca);
+	}
+	
+	@PutMapping("/marca")
+	public Marca atualizaMarca(@RequestBody Marca marca) {
+		return marcaRepository.save(marca);
+	}
+}
